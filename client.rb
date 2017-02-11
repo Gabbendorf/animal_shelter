@@ -1,11 +1,12 @@
 class Client
 
-attr_reader :full_name, :date_of_birth, :contact_details
+attr_reader :full_name, :date_of_birth, :email_address
 
-  def initialize(full_name, date_of_birth, contact_details)
+  def initialize(full_name, date_of_birth, email_address)
     @full_name = full_name
     @date_of_birth = date_of_birth
-    @contact_details = contact_details
+    @email_address = email_address
+    # @animal_adopted = animal_adopted
   end
 
 

@@ -2,13 +2,13 @@ require_relative 'ui'
 
 class Validations
 
-  def initialize
-    @ui = Ui.new
+  def initialize(ui)
+    @ui = ui
   end
 
   def validate_option_chosen(option)
     available_options = ["0", "1", "2", "3", "4", "5"]
-    while option != option.to_i.to_s || available_options.include?(option) == false
+    while option != option.to_i.to_s || !available_options.include?(option)
       # "any letters".to_i.to_s returns always "0", whereas
       # "any numbers".to_i.to_s returns "same numbers", therefore for the former
       # the above statement is true, for the latter is false (same below)
@@ -29,6 +29,20 @@ class Validations
       reply = @ui.yes_or_no
     end
     reply
+  end
+
+  def validate_email_address(email_address)
+    while !email_address.include?("@") || !email_address.include?(".")
+      email_address = @ui.invalid_email_address
+    end
+    email_address
+  end
+
+  def validate_date_of_birth(date_of_birth)
+    while !date_of_birth.include?("/") || date_of_birth.length != 10
+      date_of_birth = @ui.invalid_date_of_birth
+    end
+    date_of_birth
   end
 
 end

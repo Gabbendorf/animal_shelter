@@ -1,5 +1,10 @@
 class Ui
 
+  def initialize(stdin, stdout)
+    @stdin = stdin
+    @stdout = stdout
+  end
+
   def menu_options
     puts "1 - Show all animals"
     puts "2 - Show all clients"
@@ -22,6 +27,7 @@ class Ui
            puts "#{animal.name} is a #{animal.type} and is #{animal.age} year old."
          end
         end
+        puts ""
       else
        puts "There are no animals in the shelter."
      end
@@ -32,7 +38,7 @@ class Ui
        list.each do |client|
          puts "Name: #{client.full_name}"
          puts "Date of birth: #{client.date_of_birth}"
-         puts "Contact detail: #{client.contact_details}"
+         puts "Email address: #{client.email_address}"
          puts ""
        end
       else
@@ -60,14 +66,16 @@ class Ui
     gets.chomp
   end
 
-  def add_new_client(client_list)
+  def add_new_client(client_list, validations)
     puts "Full name:"
     full_name = gets.chomp
-    puts "Date of birth (DD/MM/YYYY):"
+    puts "Date of birth (dd/mm/yyyy):"
     date_of_birth = gets.chomp
-    puts "Contact detail (either a phone number or an email address):"
-    contact_details = gets.chomp
-    client_list.add_client(full_name, date_of_birth, contact_details)
+    date_of_birth = validations.validate_date_of_birth(date_of_birth)
+    puts "Email address:"
+    email_address = gets.chomp
+    email_address = validations.validate_email_address(email_address)
+    client_list.add_client(full_name, date_of_birth, email_address)
     puts "New client added."
   end
 
@@ -81,13 +89,9 @@ class Ui
     gets.chomp
   end
 
-  def say_goodbye
-    puts "See you soon!"
-  end
-
   def invalid_menu_option
-    puts "Option not available. Please enter a valid option."
-    gets.chomp
+    @stdout.puts "Option not available. Please enter a valid option."
+    @stdin.gets.chomp
   end
 
   def invalid_age
@@ -99,6 +103,20 @@ class Ui
   def yes_or_no
     puts "This input is wrong. Please reply with \"yes\" or \"no\""
     gets.chomp
+  end
+
+  def invalid_email_address
+    puts "Please enter a valid email address."
+    gets.chomp
+  end
+
+  def invalid_date_of_birth
+    puts "The date of birth should be in this format: dd/mm/yyyy."
+    gets.chomp
+  end
+
+  def say_goodbye
+    puts "See you soon!"
   end
 
 end

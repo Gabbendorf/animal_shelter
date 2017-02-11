@@ -4,10 +4,10 @@ require_relative 'validations'
 require_relative 'menu'
 require_relative 'client_list'
 
-ui = Ui.new
+ui = Ui.new($stdin, $stdout)
 shelter = Shelter.new
-validations = Validations.new
-# menu = Menu.new
+validations = Validations.new(ui)
+# menu = Menu.new()
 client_list = ClientList.new
 
 continue = true
@@ -33,21 +33,21 @@ while continue
   # wants to add a new animal and input is wrong}
     # says_yes = true
     # while true
-      reply = validations.validate_yes_replies(reply)
+    reply = validations.validate_yes_replies(reply)
       if reply == "yes"
         ui.ask_animal_details(shelter, validations)
         ui.add_another_animal
         # says_yes = false
       end
-    # end
+  # end
   end
 
   if option == 4
-    ui.add_new_client(client_list)
+    ui.add_new_client(client_list, validations)
     reply = ui.add_another_client
     reply = validations.validate_yes_replies(reply)
       if reply == "yes"
-        ui.add_new_client(client_list)
+        ui.add_new_client(client_list, validations)
         ui.add_another_client
       end
   end
@@ -60,7 +60,6 @@ while continue
     ui.say_goodbye
     exit
   end
-  #conditionals.all_options(option)
   reply = ui.return_to_menu
   reply = validations.validate_yes_replies(reply)
   if reply != "yes"
