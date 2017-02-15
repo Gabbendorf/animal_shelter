@@ -54,7 +54,7 @@ class Ui
     name = gets.chomp
     puts "Age of the animal?"
     age = gets.chomp
-    age = validations.validate_age(age)
+    age = validations.validate_animal_age(age)
     puts "Type of animal?"
     type = gets.chomp
     shelter.add_animal(name, age, type)
@@ -69,6 +69,7 @@ class Ui
   def add_new_client(client_list, validations)
     puts "Full name:"
     full_name = gets.chomp
+    full_name = validations.validate_user_name(full_name)
     puts "Date of birth (dd/mm/yyyy):"
     date_of_birth = gets.chomp
     date_of_birth = validations.validate_date_of_birth(date_of_birth)
@@ -94,24 +95,44 @@ class Ui
     @stdin.gets.chomp
   end
 
-  def invalid_age
-    puts "The age must be a valid number."
-    puts "Age of the animal?"
-    gets.chomp
+  def invalid_animal_age
+    @stdout.puts "The age must be a valid number."
+    @stdout.puts "Age of the animal?"
+    @stdin.gets.chomp
+  end
+
+  def invalid_animal_name
+    @stdout.puts "Please enter a name for the animal to add:"
+    @stdin.gets.chomp
   end
 
   def yes_or_no
-    puts "This input is wrong. Please reply with \"yes\" or \"no\""
-    gets.chomp
+    @stdout.puts "This input is wrong. Please reply with \"yes\" or \"no\""
+    @stdin.gets.chomp
+  end
+
+  def invalid_user_name
+    @stdout.puts "Please enter a full valid name (first name, middle name if any, surname)."
+    @stdin.gets.chomp
   end
 
   def invalid_email_address
-    puts "Please enter a valid email address."
-    gets.chomp
+    @stdout.puts "Please enter a valid email address."
+    @stdin.gets.chomp
   end
 
   def invalid_date_of_birth
-    puts "The date of birth should be in this format: dd/mm/yyyy."
+    @stdout.puts "The date of birth should be in a valid format (dd/mm/yyyy)."
+    @stdin.gets.chomp
+  end
+
+  def unlikely_year
+    puts "Please ensure that the year is correct."
+    gets.chomp
+  end
+
+  def user_too_young
+    puts "You must be at least 15 years old to register."
     gets.chomp
   end
 

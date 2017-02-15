@@ -1,4 +1,5 @@
 require_relative 'ui'
+require 'date'
 
 class Validations
 
@@ -17,11 +18,18 @@ class Validations
     option.to_i
   end
 
-  def validate_age(age)
+  def validate_animal_age(age)
     while age != age.to_i.to_s || age <= "0"
-      age = @ui.invalid_age
+      age = @ui.invalid_animal_age
     end
     age.to_i
+  end
+
+  def validate_animal_name(name)
+    while name == "\n"
+      name = @ui.invalid_animal_name
+    end
+    name
   end
 
   def validate_yes_replies(reply)
@@ -39,10 +47,51 @@ class Validations
   end
 
   def validate_date_of_birth(date_of_birth)
-    while !date_of_birth.include?("/") || date_of_birth.length != 10
-      date_of_birth = @ui.invalid_date_of_birth
+    validation_result = is_valid_date_of_birth(date_of_birth)
+    while validation_result != true
+      if validation_result == "unlikely year"
+        date_of_birth = @ui.unlikely_year
+      elsif validation_result == "too young"
+        date_of_birth = @ui.user_too_young
+      else
+        date_of_birth = @ui.invalid_date_of_birth
+      end
+      validation_result = is_valid_date_of_birth(date_of_birth)
     end
     date_of_birth
+  end
+
+  def is_valid_date_of_birth(date_of_birth)
+    splitted_date = date_of_birth.split("/")
+    if splitted_date.length != 3
+      return "invalid"
+    end
+    begin
+      date_of_birth = Date.new(
+        splitted_date[2].to_i,
+        splitted_date[1].to_i,
+        splitted_date[0].to_i
+      )
+      if date_of_birth.year <= (Date.today.year - 120) || date_of_birth.year > Date.today.year
+        return "unlikely year"
+      elsif date_of_birth.year > (Date.today.year - 15)
+        return "too young"
+      else
+        return true
+      end
+    rescue ArgumentError
+      return "invalid"
+    end
+  end
+
+  def validate_user_name(full_name)
+    splitted_full_name = full_name.split(" ")
+    while splitted_full_name.length < 2
+      full_name = @ui.invalid_user_name
+      splitted_full_name = full_name.split(" ")
+    end
+    full_name = splitted_full_name.join(" ")
+    full_name
   end
 
 end

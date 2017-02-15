@@ -2,40 +2,38 @@ require_relative 'ui'
 
 class Menu
 
-  def initialize
-    @ui = Ui.new
-  end
-
-  def initialize
-    @shelter = Shelter.new
+  def initialize(ui, validations, client_list, shelter)
+    @ui = ui
+    @validations = validations
+    @client_list = client_list
+    @shelter = shelter
   end
 
   def choose(option)
     if option == 1
-      @ui.shows_animals(animal_list)
+      @ui.shows_animals(@shelter.animal_list)
     end
 
     if option == 2
-      @ui.shows_clients(client_list.list)
+      @ui.shows_clients(@client_list.list)
     end
 
     if option == 3
-      @ui.ask_animal_details(shelter, validations)
-      another = @ui.add_another_animal
-      if another == "yes"
-        @ui.ask_animal_details
-        @ui.add_another_animal
-      else
-        @ui.return_to_menu
-      end
+      @ui.ask_animal_details(@shelter, @validations)
+      reply = @ui.add_another_animal
+      reply = @validations.validate_yes_replies(reply)
+        if reply == "yes"
+          @ui.ask_animal_details(@shelter, @validations)
+          @ui.add_another_animal
+        end
     end
 
     if option == 4
-      @ui.add_new_client(client_list)
+      @ui.add_new_client(@client_list, @validations)
       reply = @ui.add_another_client
-      reply = validations.validate_yes_replies(reply)
+      reply = @validations.validate_yes_replies(reply)
         if reply == "yes"
-          @ui.add_new_client(client_list)
+          @ui.add_new_client(@client_list, @validations)
           @ui.add_another_client
         end
     end
