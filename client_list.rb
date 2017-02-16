@@ -8,8 +8,8 @@ class ClientList
     @list = []
   end
 
-  def add_client(full_name, date_of_birth, email_address)
-    @list << Client.new(full_name, date_of_birth, email_address)
+  def add_client(full_name, date_of_birth, email_address, animals_adopted)
+    @list << Client.new(full_name, date_of_birth, email_address, animals_adopted)
   end
 
 end

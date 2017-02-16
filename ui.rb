@@ -39,6 +39,11 @@ class Ui
          puts "Name: #{client.full_name}"
          puts "Date of birth: #{client.date_of_birth}"
          puts "Email address: #{client.email_address}"
+         if client.animals_adopted.length < 1
+           puts "No animals adopted yet."
+         else
+           puts "Animals adopted: #{client.animals_adopted}"
+         end
          puts ""
        end
       else
@@ -47,8 +52,6 @@ class Ui
   end
 
   def ask_animal_details(shelter, validations)
-  # --> wanted to ask the user to enter details or "quit" if they want to
-  # return to menu. Started writing code but got stuck
     puts "Please provide details of the animal to add:"
     puts "Name of the animal?"
     name = gets.chomp
@@ -76,7 +79,9 @@ class Ui
     puts "Email address:"
     email_address = gets.chomp
     email_address = validations.validate_email_address(email_address)
-    client_list.add_client(full_name, date_of_birth, email_address)
+    puts "Animals:"
+    animals_adopted = "No animals"
+    client_list.add_client(full_name, date_of_birth, email_address, animals_adopted)
     puts "New client added."
   end
 
@@ -139,6 +144,20 @@ class Ui
   def choose_animal
     puts "Choose an animal to adopt:"
     puts ""
+  end
+
+  def user_has_to_register_first
+    puts "You must register first."
+  end
+
+  def gets_users_choice_of_animal
+    gets.chomp
+  end
+
+  def non_existing_animal
+    puts "This animal is not included in the list."
+    puts "Please choose an animal from the list:"
+    gets.chomp
   end
 
   def say_goodbye
