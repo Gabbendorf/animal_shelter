@@ -25,13 +25,6 @@ class Validations
     age.to_i
   end
 
-  def validate_animal_name(name)
-    while name == "\n"
-      name = @ui.invalid_animal_name
-    end
-    name
-  end
-
   def validate_yes_replies(reply)
     while reply != "yes" && reply != "no"
       reply = @ui.yes_or_no

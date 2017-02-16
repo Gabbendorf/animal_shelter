@@ -8,16 +8,4 @@ class Animal
     @type = type
   end
 
-  # def name(name)
-  #   @name = name
-  # end
-  #
-  # def age(age)
-  #   @age = age
-  # end
-  #
-  # def type(type)
-  #   @type = type
-  # end
-
 end

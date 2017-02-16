@@ -2,17 +2,24 @@ require_relative 'validations'
 
 RSpec.describe Validations do
 let(:output) {StringIO.new}
-# add this for each test individually
-let(:input) {StringIO.new("yes\n1\ndd@dd.dd\n06/09/1983\nGabriella Medas\nGarfield")}
+let(:input) {StringIO.new}
 let(:ui) {Ui.new(input, output)}
 let(:validations) {Validations.new(ui)}
+
+  def set_up_validations(string)
+    input = StringIO.new(string)
+    ui = Ui.new(input, output)
+    Validations.new(ui)
+  end
 
   it "returns the menu number if the user's input is true" do
     expect(validations.validate_option_chosen("4")).to eq(4)
   end
 
   it "outputs a message for the user if the menu number is wrong" do
-    # @input = StringIO.new("0\n")
+    input = StringIO.new("2\n")
+    ui = Ui.new(input, output)
+    validations = Validations.new(ui)
     validations.validate_option_chosen("9")
     expect(output.string).to include("Option not available. Please enter a valid option.")
   end
@@ -22,12 +29,17 @@ let(:validations) {Validations.new(ui)}
   end
 
   it "outputs a message for the user if the age is not valid" do
-    # @input = StringIO.new("9\n")
+    input = StringIO.new("9\n")
+    ui = Ui.new(input, output)
+    validations = Validations.new(ui)
     validations.validate_animal_age("d")
     expect(output.string).to include("The age must be a valid number.")
   end
 
   it "outputs a message for the user if his reply is different from yes or no" do
+    input = StringIO.new("yes\n")
+    ui = Ui.new(input, output)
+    validations = Validations.new(ui)
     validations.validate_yes_replies("ok")
     expect(output.string).to include("This input is wrong. Please reply with \"yes\" or \"no\"")
   end
@@ -37,7 +49,10 @@ let(:validations) {Validations.new(ui)}
   end
 
   it "outputs a message for the user if the email address is in a wrong format" do
-    validations.validate_email_address("dd@dd")
+    input = StringIO.new("jsmith@google.com\n")
+    ui = Ui.new(input, output)
+    validations = Validations.new(ui)
+    validations.validate_email_address("jsmith@googlecom")
     expect(output.string).to include("Please enter a valid email address.")
   end
 
@@ -46,6 +61,9 @@ let(:validations) {Validations.new(ui)}
   end
 
   it "outputs a message for the user if the date of birth format is incorrect" do
+    input = StringIO.new("06/09/1983\n")
+    ui = Ui.new(input, output)
+    validations = Validations.new(ui)
     validations.validate_date_of_birth("06/09/2030")
     expect(output.string).to include("The date of birth should be in a valid format (dd/mm/yyyy).")
   end
@@ -59,17 +77,11 @@ let(:validations) {Validations.new(ui)}
   end
 
   it "outputs a message for the user if the name has less than 2 words" do
+    input = StringIO.new("Gabriella Medas\n")
+    ui = Ui.new(input, output)
+    validations = Validations.new(ui)
     validations.validate_user_name("Gabriella")
     expect(output.string).to include("Please enter a full valid name (first name, middle name if any, surname).")
-  end
-
-  it "returns the animal name if it is not an empty string" do
-    expect(validations.validate_animal_name("Garfield")).to eq("Garfield")
-  end
-
-  it "outputs a message for the user if the animal name is an empty string" do
-    validations.validate_animal_name("\n")
-    expect(output.string).to include("Please enter a name for the animal to add:")
   end
 
 end

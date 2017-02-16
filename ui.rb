@@ -136,6 +136,11 @@ class Ui
     gets.chomp
   end
 
+  def choose_animal
+    puts "Choose an animal to adopt:"
+    puts ""
+  end
+
   def say_goodbye
     puts "See you soon!"
   end

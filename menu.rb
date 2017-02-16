@@ -38,9 +38,13 @@ class Menu
         end
     end
 
-    no = "Function not available. Work in progress!"
     if option == 5
-      puts no
+      if @shelter.animal_list.length < 1
+        @ui.shows_animals(@shelter.animal_list)
+      else
+        @ui.choose_animal
+        @ui.shows_animals(@shelter.animal_list)
+      end
     end
 
     if option == 0

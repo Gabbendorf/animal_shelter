@@ -10,7 +10,6 @@ class ClientList
 
   def add_client(full_name, date_of_birth, email_address)
     @list << Client.new(full_name, date_of_birth, email_address)
-
   end
 
 end
