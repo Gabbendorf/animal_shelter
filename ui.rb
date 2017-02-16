@@ -141,22 +141,28 @@ class Ui
     gets.chomp
   end
 
-  def choose_animal
-    puts "Choose an animal to adopt:"
-    puts ""
-  end
-
   def user_has_to_register_first
     puts "You must register first."
   end
 
-  def gets_users_choice_of_animal
+  def gets_name_of_animal_to_adopt
+    puts "Name of animal to adopt:"
     gets.chomp
   end
 
   def non_existing_animal
     puts "This animal is not included in the list."
     puts "Please choose an animal from the list:"
+    gets.chomp
+  end
+
+  def name_of_user_who_adopts
+    puts "Full name of person who wants to adopt:"
+    gets.chomp
+  end
+
+  def adopt_other_animal
+    puts "Do you want to adopt another animal?"
     gets.chomp
   end
 

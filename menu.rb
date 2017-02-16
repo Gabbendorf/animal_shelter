@@ -1,4 +1,5 @@
 require_relative 'ui'
+require_relative 'adoption'
 
 class Menu
 
@@ -7,6 +8,7 @@ class Menu
     @validations = validations
     @client_list = client_list
     @shelter = shelter
+    @adoption = Adoption.new
   end
 
   def choose(option)
@@ -45,15 +47,23 @@ class Menu
     if option == 5
       if @client_list.list.length < 1
         @ui.user_has_to_register_first
-        @ui.menu_options
-      end
-
-      if @shelter.animal_list.length < 1
+      elsif @shelter.animal_list.length < 1
         @ui.shows_animals(@shelter.animal_list)
       else
-        @ui.choose_animal
         @ui.shows_animals(@shelter.animal_list)
-        @ui.gets_users_choice_of_animal
+        animal = @ui.gets_name_of_animal_to_adopt
+        @adoption.adopt(animal)
+        @ui.name_of_user_who_adopts
+        reply = @ui.adopt_other_animal
+        reply = @validations.validate_yes_replies(reply)
+        while reply == "yes"
+          @ui.shows_animals(@shelter.animal_list)
+          @ui.gets_name_of_animal_to_adopt
+          @ui.name_of_user_who_adopts
+          reply = @ui.adopt_other_animal
+          reply = @validations.validate_yes_replies(reply)
+        end
+
       end
     end
 
