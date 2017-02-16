@@ -50,16 +50,11 @@ class Menu
       elsif @shelter.animal_list.length < 1
         @ui.shows_animals(@shelter.animal_list)
       else
-        @ui.shows_animals(@shelter.animal_list)
-        animal = @ui.gets_name_of_animal_to_adopt
-        @adoption.adopt(animal)
-        @ui.name_of_user_who_adopts
+        adopt_animal
         reply = @ui.adopt_other_animal
         reply = @validations.validate_yes_replies(reply)
         while reply == "yes"
-          @ui.shows_animals(@shelter.animal_list)
-          @ui.gets_name_of_animal_to_adopt
-          @ui.name_of_user_who_adopts
+          adopt_animal
           reply = @ui.adopt_other_animal
           reply = @validations.validate_yes_replies(reply)
         end
@@ -71,6 +66,13 @@ class Menu
       @ui.say_goodbye
       exit
     end
+  end
+
+  def adopt_animal
+    @ui.shows_animals(@shelter.animal_list)
+    animal = @ui.gets_name_of_animal_to_adopt
+    @adoption.adopt(animal)
+    @ui.name_of_user_who_adopts
   end
 
 end
