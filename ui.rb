@@ -11,6 +11,7 @@ class Ui
     puts "3 - Add an animal"
     puts "4 - Add a client"
     puts "5 - Adopt an animal"
+    # puts "6 - Save list"
     puts "0 - Quit"
   end
 

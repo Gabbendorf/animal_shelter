@@ -8,7 +8,7 @@ class Validations
   end
 
   def validate_option_chosen(option)
-    available_options = ["0", "1", "2", "3", "4", "5"]
+    available_options = ["0", "1", "2", "3", "4", "5", "6"]
     while option != option.to_i.to_s || !available_options.include?(option)
       # "any letters".to_i.to_s returns always "0", whereas
       # "any numbers".to_i.to_s returns "same numbers", therefore for the former

@@ -58,9 +58,12 @@ class Menu
           reply = @ui.adopt_other_animal
           reply = @validations.validate_yes_replies(reply)
         end
-
       end
     end
+
+    # if option == 6
+    #   @shelter.save_animal_list
+    # end
 
     if option == 0
       @ui.say_goodbye
