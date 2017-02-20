@@ -5,7 +5,8 @@ class Shelter
   attr_reader :animal_list
 
   def initialize
-    @animal_list = [Animal.new("Tom", 8, "cat"), Animal.new("Jerry", 9, "dog"), Animal.new("Garfield", 4, "hamster")]
+    @animal_list = []
+    # @animal_list = [Animal.new("Tom", 8, "cat"), Animal.new("Jerry", 9, "dog"), Animal.new("Garfield", 4, "hamster")]
   end
 
   def add_animal(name, age, type)
@@ -17,7 +18,11 @@ class Shelter
   # end
 
   def in_shelter?(animal)
-    @animal_list.include?(animal)
+    if !@animal_list.include?(animal)
+      false
+    else
+      animal
+    end
   end
 
   # def save_animal_list
