@@ -80,9 +80,7 @@ class Ui
     puts "Email address:"
     email_address = gets.chomp
     email_address = validations.validate_email_address(email_address)
-    puts "Animals:"
-    animals_adopted = "No animals"
-    client_list.add_client(full_name, date_of_birth, email_address, animals_adopted)
+    client_list.add_client(full_name, date_of_birth, email_address)
     puts "New client added."
   end
 

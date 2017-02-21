@@ -13,16 +13,30 @@ class Shelter
     @animal_list << Animal.new(name, age, type)
   end
 
-  # def add_animal(animal)
-  #   @animal_list << animal
-  # end
-
   def in_shelter?(animal)
     if !@animal_list.include?(animal)
       false
     else
       animal
     end
+  end
+
+  def remove_animal(animal)
+    @animal_list.delete(animal)
+  end
+
+  def animal_by_name(animal_name)
+    @animal_list.each do |animal|
+      if animal.name == animal_name
+        return animal
+      end
+    end
+    return false
+  end
+
+  def adopt(animal, client)
+    # 1. remove animal from the shelter
+    # 2. add the animal to client's adopted animals list
   end
 
   # def save_animal_list

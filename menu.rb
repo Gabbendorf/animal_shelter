@@ -1,5 +1,4 @@
 require_relative 'ui'
-require_relative 'adoption'
 
 class Menu
 
@@ -8,7 +7,6 @@ class Menu
     @validations = validations
     @client_list = client_list
     @shelter = shelter
-    @adoption = Adoption.new
   end
 
   def choose(option)
@@ -74,7 +72,6 @@ class Menu
   def adopt_animal
     @ui.shows_animals(@shelter.animal_list)
     animal = @ui.gets_name_of_animal_to_adopt
-    @adoption.adopt(animal)
     @ui.name_of_user_who_adopts
   end
 
