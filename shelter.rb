@@ -1,12 +1,14 @@
 require_relative 'animal'
+require_relative 'client'
+# require_relative 'client_list'
 
 class Shelter
 
   attr_reader :animal_list
 
   def initialize
-    @animal_list = []
-    # @animal_list = [Animal.new("Tom", 8, "cat"), Animal.new("Jerry", 9, "dog"), Animal.new("Garfield", 4, "hamster")]
+    # @animal_list = []
+    @animal_list = [Animal.new("Tom", 8, "cat"), Animal.new("Jerry", 9, "dog"), Animal.new("Garfield", 4, "hamster")]
   end
 
   def add_animal(name, age, type)
@@ -21,10 +23,6 @@ class Shelter
     end
   end
 
-  def remove_animal(animal)
-    @animal_list.delete(animal)
-  end
-
   def animal_by_name(animal_name)
     @animal_list.each do |animal|
       if animal.name == animal_name
@@ -35,8 +33,8 @@ class Shelter
   end
 
   def adopt(animal, client)
-    # 1. remove animal from the shelter
-    # 2. add the animal to client's adopted animals list
+    animal_deleted = @animal_list.delete(animal)
+    client.animals_adopted << animal_deleted
   end
 
   # def save_animal_list

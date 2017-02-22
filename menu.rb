@@ -71,8 +71,11 @@ class Menu
 
   def adopt_animal
     @ui.shows_animals(@shelter.animal_list)
-    animal = @ui.gets_name_of_animal_to_adopt
-    @ui.name_of_user_who_adopts
+    animal_name = @ui.gets_name_of_animal_to_adopt
+    client_name = @ui.name_of_client_who_adopts
+    animal = @shelter.animal_by_name(animal_name)
+    client = @client_list.client_by_name(client_name)
+    @shelter.adopt(animal, client)
   end
 
 end

@@ -43,7 +43,10 @@ class Ui
          if client.animals_adopted.length < 1
            puts "No animals adopted yet."
          else
-           puts "Animals adopted: #{client.animals_adopted}"
+           animal_names = client.animals_adopted.map do |animal|
+             animal.name
+           end
+           puts "Animals adopted: #{animal_names.join(", ")}"
          end
          puts ""
        end
@@ -155,7 +158,7 @@ class Ui
     gets.chomp
   end
 
-  def name_of_user_who_adopts
+  def name_of_client_who_adopts
     puts "Full name of person who wants to adopt:"
     gets.chomp
   end

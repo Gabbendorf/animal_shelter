@@ -34,12 +34,12 @@ RSpec.describe Shelter do
     expect(shelter.in_shelter?(animal)).to eq(animal)
   end
 
-  it "removes the animal" do
-    shelter.add_animal("John", 6, "Dog")
-    added_animal = shelter.animal_by_name("John")
-    shelter.remove_animal(added_animal)
-    expect(shelter.animal_list.length).to eq(0)
-  end
+  # it "removes the animal" do
+  #   shelter.add_animal("John", 6, "Dog")
+  #   added_animal = shelter.animal_by_name("John")
+  #   shelter.remove_animal(added_animal)
+  #   expect(shelter.animal_list.length).to eq(0)
+  # end
 
   it "returns the animal by name if it's in shelter" do
     shelter.add_animal("John", 6, "Dog")
@@ -55,7 +55,12 @@ RSpec.describe Shelter do
   end
 
   it "removes animal from shelter when adopting" do
-    
+    shelter.add_animal("John", 6, "Dog")
+    nic = Client.new("Nic", "20/03/1983", "nic@ciao.io")
+    added_animal = shelter.animal_by_name("John")
+    shelter.adopt(added_animal, nic)
+    expect(shelter.animal_list.length).to eq(0)
+    expect(nic.animals_adopted.length).to eq(1)
   end
 
 end

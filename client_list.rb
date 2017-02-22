@@ -21,4 +21,13 @@ class ClientList
     end
   end
 
+  def client_by_name(client_name)
+    @list.each do |client|
+      if client.full_name == client_name
+        return client
+      end
+    end
+    false
+  end
+
 end
