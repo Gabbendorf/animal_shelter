@@ -17,10 +17,10 @@ RSpec.describe Shelter do
     expect(first_animal.type).to eq("Dog")
   end
 
-  xit "confirms the animal is in the shelter" do
+  it "confirms the animal is in the shelter" do
     shelter.add_animal("John", 6, "Dog")
     animal = shelter.animal_list[0]
-    expect(shelter.in_shelter?(animal)).to eq(true)
+    expect(shelter.in_shelter?(animal)).to eq(animal)
   end
 
   it "confirms the animal is not in the shelter" do
@@ -33,13 +33,6 @@ RSpec.describe Shelter do
     animal = shelter.animal_list[0]
     expect(shelter.in_shelter?(animal)).to eq(animal)
   end
-
-  # it "removes the animal" do
-  #   shelter.add_animal("John", 6, "Dog")
-  #   added_animal = shelter.animal_by_name("John")
-  #   shelter.remove_animal(added_animal)
-  #   expect(shelter.animal_list.length).to eq(0)
-  # end
 
   it "returns the animal by name if it's in shelter" do
     shelter.add_animal("John", 6, "Dog")

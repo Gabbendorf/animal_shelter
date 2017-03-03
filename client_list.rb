@@ -5,8 +5,8 @@ class ClientList
   attr_reader :list
 
   def initialize
-    # @list = []
-    @list = [Client.new("Gabriella Medas", "06/09/1983", "gabriella@yahoo.it")]
+    @list = []
+    # @list = [Client.new("Gabriella Medas", "06/09/1983", "gabriella@yahoo.it")]
   end
 
   def add_client(full_name, date_of_birth, email_address)

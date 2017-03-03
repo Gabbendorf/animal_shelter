@@ -7,8 +7,8 @@ class Shelter
   attr_reader :animal_list
 
   def initialize
-    # @animal_list = []
-    @animal_list = [Animal.new("Tom", 8, "cat"), Animal.new("Jerry", 9, "dog"), Animal.new("Garfield", 4, "hamster")]
+    @animal_list = []
+    # @animal_list = [Animal.new("Tom", 8, "cat"), Animal.new("Jerry", 9, "dog"), Animal.new("Garfield", 4, "hamster")]
   end
 
   def add_animal(name, age, type)
@@ -33,8 +33,8 @@ class Shelter
   end
 
   def adopt(animal, client)
-    animal_deleted = @animal_list.delete(animal)
-    client.animals_adopted << animal_deleted
+    @animal_list.delete(animal)
+    client.animals_adopted << animal
   end
 
   # def save_animal_list
