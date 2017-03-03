@@ -1,3 +1,0 @@
-#<Animal:0x007fd3020d7de8>
-#<Animal:0x007fd3020d7d70>
-#<Animal:0x007fd3020d7cf8>
